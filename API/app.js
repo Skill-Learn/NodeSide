@@ -1,12 +1,16 @@
 const express = require("express");
-const mongoose  = require("mongoose");
-
+const mongoose = require("mongoose");
 const app = express();
 
-// mongoose.Promise = global.Promise;
+// TO USE ENVIRONMENT VARIABLE
+require('dotenv/config');
+
+// TO PARSE DATA AS JSON WHEN SENT TO THE DATABASE
+
+app.use(express.json());
 
 // Connect MongoDB at default port 27017.
-mongoose.connect('mongodb://localhost:27017/SkillDB', {
+mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }, (err) => {
@@ -18,13 +22,21 @@ mongoose.connect('mongodb://localhost:27017/SkillDB', {
 });
 
 // ROUTES
-// the home/default route
+// Bring home some routes
 
+const postsRoute = require('./routes/posts');
+const userRoute = require('./routes/auth');
+
+
+app.use('/posts', postsRoute);
+app.use('/register', userRoute);
+
+
+
+// the home/default route
 app.get("/", (req, res) => {
     res.send("We are home")
-    
 });
 
 // to start listening to the server
 app.listen(3000);
- 
