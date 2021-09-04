@@ -24,12 +24,14 @@ mongoose.connect(process.env.DB_URL, {
 // ROUTES
 // Bring home some routes
 
-const postsRoute = require('./routes/posts');
+const videoRoute = require('./routes/videos');
+const articleRoute = require('./routes/articles')
 const userRoute = require('./routes/auth');
 
 
-app.use('/posts', postsRoute);
-app.use('/register', userRoute);
+app.use('/api/videos', videoRoute);
+app.use('/api/articles', articleRoute);
+app.use('/api/auth', userRoute);
 
 
 
