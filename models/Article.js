@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const VideoSchema = mongoose.Schema({
+const ArticleSchema = mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -9,13 +9,9 @@ const VideoSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    filePath: {
+    content: {
         type: String,
         required: true
-    },
-    thumbnail: {
-        type: String, 
-        default: "https://localhost:3000/upload/images/videoThumb.png"
     },
     date:  {
         type: Date,
@@ -24,4 +20,4 @@ const VideoSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Videos', VideoSchema);
+module.exports = mongoose.model('Article', ArticleSchema);

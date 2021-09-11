@@ -31,7 +31,7 @@ const userRoute = require('./routes/auth');
 
 app.use('/api/videos', videoRoute);
 app.use('/api/articles', articleRoute);
-app.use('/api/auth', userRoute);
+// app.use('/api/auth', userRoute);
 
 
 

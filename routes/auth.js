@@ -1,32 +1,64 @@
-const router = require("express").Router();
-const User = require("../models/User");
+// const router = require("express").Router();
 
-const Joi = require("joi");
-const schema = {
-    username: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required(),
-};
+// // Importing useful things for validation
+// const bcrypt = require("bcrypt");
+// const validator = require("validator");
 
-router.get("/", (req, res) => {
-    res.send("Some value");
-});
+// // Import model
+// const User = require("../../models/User");
 
-router.post("/", async (req, res) => {
-    // Validate the data before submitting
-    const { error } = schema.validate;
-    res.send(error);
+// // Importing jwt and secret key for password reset
+// const jwt = require("jsonwebtoken");
+// const secret_key = process.env.SECRET_KEY;
 
-    // const user = new User({
-    //     username: req.body.username,
-    //     password: req.body.password,
-    // });
 
-    // try {
-    //     const savedUser = await user.save();
-    //     res.send(savedUser);
-    // } catch (err) {
-    //     res.status(400).send(err);
-    // }
-});
+// router.post('/register', async (req, res) => {
+//     try{
+//         const newUser = new User({
+//             username: req.body.username,
+//             password: req.body.password,
+//             email: req.body.email,
+//             subscriptions: [[]],
+//         });
 
-module.exports = router;
+//         const user = await newUser.save();
+//     }
+//     catch(err){
+//         res.status(400).json({error: err});
+//     }
+// });
+
+// router.post("/login", async (req, res) => {
+//     const { username, password } = req.body;
+  
+//     try {
+//       const user = await User.login(username, password);
+//       if (user) {
+//         // Get user id
+//         const userId = await user._id;
+  
+//         // Generate token
+//         const token = jwt.sign(
+//           {
+//             data: userId,
+//           },
+//           secret_key,
+//           { expiresIn: "1h" }
+//         );
+  
+//         // Send token
+//         res.status(200).json({
+//           token: token,
+//           name: user.username,
+//           emailAddress: user.email,
+//           role: user.role,
+//         });
+//       }
+//       console.log("User Matched");
+//     } catch (err) {
+//       res.status(400).json(err);
+//     }
+//   });
+
+
+// module.exports = router;

@@ -18,20 +18,22 @@ router.get('/', (req, res) => {
     res.send("From the separate file!");
 });
 
-router.post('/', upload.single('content'), (req, res) => {
-    console.log(req.file);
-    // const post = new Post({
-    //     title: req.body.title,
-    //     description: req.body.description
-    // });
+router.post('/', upload.array('videoPlusThumb', 2), async (req, res) => {
+    console.log(req.body);
+    const video = new Video({
+        title: req.body.title,
+        description: req.body.description,
+        // filePath: req.files[0].filename,
+        // thumbnail: req.files[1].filename,
+    });
 
-    // post.save()
-    //     .then(data => {
-    //         res.json(data);
-    //     })
-    //     .catch(err => {
-    //         res.json({message: err});
-    //     });
+    try{
+        const saveVideo = await video.save();
+        res.json(saveVideo);
+    }catch(err){
+        res.json({message: err});
+    }
+    
 });
 
 
