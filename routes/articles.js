@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const Article = require('../models/Article');
-const Course = require('../models/course');
-const { route } = require('./videos');
 
 router.get('/', async (req, res) => {
     try{
@@ -16,23 +14,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/test', (req, res) => {
-    res.send("From Node")
-})
-router.get('/courses', async (req, res) => {
-    try{
-        const courses = await Course.find();
-        res.status(200).json(courses);
-    }
-    catch(err){
-        res.json({message: err});
-    }
-} );
 router.post('/', (req, res) => {
     const article = new Article({
         title: req.body.title,
         description: req.body.description,
         content: req.body.content,
+        creator: req.body.creator,
+        date: req.body.date,
     });
 
     article.save()
@@ -43,24 +31,37 @@ router.post('/', (req, res) => {
             res.json({message: err});
         });
 });
-router.post('/courses', (req, res) => {
-    console.log("post requested")
-    const article = new Article({
-        id: req.body.id,
-        code: req.body.code,
-        title: req.body.title,
-        ects: req.body.ects,
-        description: req.body.description,
-    });
+router.get('/:id', (req, res) => {
+    const article =  Article.findById(req.params.id);
 
-    article.save()
-        .then(data => {
-            res.json(data);
-        })
-        .catch(err => {
-            res.json({message: err});
-        });
+    try{
+        res.send(article);
+    }catch(err){
+        res.json({message: err});
+    }
+    
 });
+router.patch('/:id', async (req, res) => {
+    try{
+        const article = await Article.updateMany(
+            {_id: req.params.id},
+            {set: {title: req.body.title} },
+            {set: {description: req.body.description} },
+            {set: {content: req.body.content} },
+            {set: {creator: req.body.creator} },
+            );
+    } catch(err){
+        res.json({message: err});
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try{
+        const removedArticle = await Article.remove({_id: req.params.id});
+    } catch(err){
+        res.json({message: err})
+    }
+})
 
 
 module.exports = router;
