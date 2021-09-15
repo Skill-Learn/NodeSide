@@ -2,9 +2,8 @@
     "name": "api",
     "version": "1.0.0",
     "description": "API for the skill app",
-    "main": "app.js",
     "scripts": {
-        "start": "nodemon main"
+        "start": "nodemon app"
     },
     "author": "",
     "license": "ISC",

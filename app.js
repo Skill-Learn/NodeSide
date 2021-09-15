@@ -26,13 +26,13 @@ mongoose.connect(process.env.DB_URL, {
 
 const videoRoute = require('./routes/videos');
 const articleRoute = require('./routes/articles')
-const userRoute = require('./routes/auth');
+    // const userRoute = require('./routes/auth');
 const profileRoute = require('./routes/profile');
 
 app.use('/api/videos', videoRoute);
 app.use('/api/articles', articleRoute);
-app.use('/api/auth', userRoute);
-app.use('/api/profile', profileRoute);
+// app.use('/api/auth', userRoute);
+app.use('/api/user/profile', profileRoute);
 
 
 
